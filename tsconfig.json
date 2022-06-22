@@ -1,14 +1,14 @@
 {
    "compilerOptions": {
-      "outDir": "./client/dist/",
+      "outDir": "./dist/",
       "module": "CommonJS",
       "sourceMap": true,
       "target": "es5",
       "jsx": "react",
       "allowJs": true,
       "moduleResolution": "node",
-      "allowSyntheticDefaultImports": true,
       "strict": true,
-      "esModuleInterop": true
+      "esModuleInterop": true,
+      "forceConsistentCasingInFileNames": true
    }
 }
