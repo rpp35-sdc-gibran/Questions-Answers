@@ -1,35 +1,53 @@
 import { pool } from '../database/db';
+import { v4 as uuidv4 } from 'uuid';
 
 interface QuestionQuery {
    product_id: string;
    page: string;
    count: string;
 }
-
+interface Question {
+   body: string;
+   name: string;
+   email: string;
+   product_id: string;
+}
 const get = (query: QuestionQuery) => {
    let product_id: number = parseInt(query.product_id);
-   // let dbQuery = `SELECT * FROM questions WHERE product_id=${product_id}`;
-   // let dbQuery = `SELECT * FROM questions LEFT JOIN answers ON (questions.id = answers.question_id) WHERE questions.product_id=${product_id}`;
-   let questionsQuery = `SELECT questions.*, data.items
+   let questionsQuery = `SELECT questions.*, data.answers
    FROM questions
    INNER JOIN (SELECT question_id, array_to_json(array_agg(to_json(answers.*)))
    FROM answers
-   GROUP BY question_id) AS data (id, items) on (questions.id = data.id)
+   GROUP BY question_id) AS data (id, answers) on (questions.id = data.id)
     WHERE questions.product_id = ${product_id}
    `;
-
    let results = pool.query(questionsQuery);
    return results;
 };
 
-export { get };
+const create = (question: Question) => {
+   let postQuery = `INSERT INTO questions
+   (body, asker_name, asker_email, product_id)
+    VALUES ('${question.body}', '${question.name}', '${question.email}', '${question.product_id}')`;
+   let results = pool.query(postQuery);
+   return results;
+};
 
-//https://stackoverflow.com/questions/15847173/concatenate-multiple-result-rows-of-one-column-into-one-group-by-another-column
+const editHelpful = (id: string) => {
+   let editQuery = `UPDATE questions SET helpful = helpful + 1 WHERE id = ${id}`;
+   let results = pool.query(editQuery);
+   return results;
+};
 
-let answersQuery = `SELECT answers.*, data.items
-   FROM answers
-   INNER JOIN (SELECT answer_id, array_to_json(array_agg(to_json(photos.*)))
-   FROM photos
-   GROUP BY answer_id) AS data (id, items) on (answers.id = data.id)
-    WHERE answers.id = 5
-   `;
+const editReport = (id: string) => {
+   let editQuery = `UPDATE questions SET reported = true WHERE id = ${id}`;
+   let results = pool.query(editQuery);
+   return results;
+};
+
+export { get, create, editHelpful, editReport };
+
+// let max_id_of_quesions = `6879307`;
+// let test = `create sequence photos_id_seq minvalue 2063760`;
+// let test2 = `alter table photos alter id set default nextval('photos_id_seq')`;
+// let test3 = `alter sequence photos_id_seq owned by photos.id`;
