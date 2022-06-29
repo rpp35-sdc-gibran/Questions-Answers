@@ -12,8 +12,27 @@ const get = (answersQuery: DatabaseQueryAnswers) => {
    INNER JOIN (SELECT answer_id, array_to_json(array_agg(to_json(photos.*)))
    FROM photos
    GROUP BY answer_id) AS data (id, photos) on (answers.id = data.id)
-    WHERE answers.question_id = ${answersQuery.question_id}
-   `;
+    WHERE answers.question_id = ${answersQuery.question_id}`;
+
+   //  ${answersQuery.question_id}
+   // let dbQuery = `SELECT answers.*, data.photos
+   // FROM answers
+   // INNER JOIN (SELECT answer_id, array_to_json(array_agg(to_json(photos.*)))
+   // FROM photos
+   // GROUP BY answer_id) AS data (id, photos) on (answers.id = data.id)
+   //  WHERE answers.question_id = ${answersQuery.question_id}
+   // `;
+   //492192
+   console.log('dbQuery:', dbQuery);
+   let results = pool.query(dbQuery);
+   console.log('results in get model answers:', results);
+
+   return results;
+};
+
+//gets answers for those that have no photos
+const getAnswersOnly = (id: string) => {
+   let dbQuery = `SELECT * FROM answers WHERE question_id=${id}`;
    let results = pool.query(dbQuery);
    return results;
 };
@@ -44,4 +63,11 @@ const editReport = (id: string) => {
    return results;
 };
 
-export { get, createAnswer, createPhoto, editHelpful, editReport };
+export {
+   get,
+   createAnswer,
+   createPhoto,
+   editHelpful,
+   editReport,
+   getAnswersOnly,
+};

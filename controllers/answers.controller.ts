@@ -11,6 +11,8 @@ import {
 //list answers route
 const getAnswers = async (req: Request, res: Response) => {
    const params = req.params as unknown as Params;
+   console.log('params:', params);
+
    try {
       let query = req.query as unknown as QueryRequest;
       let dataObject = {} as DatabaseQueryAnswers;
@@ -18,10 +20,16 @@ const getAnswers = async (req: Request, res: Response) => {
       dataObject.page = query.page;
       dataObject.count = query.count;
       let answers = await model.get(dataObject);
-      console.log(answers);
-      res.status(201).send(answers.rows);
+      console.log('answers:', answers);
+      if (answers.rows.length) {
+         res.status(200).send(answers.rows);
+      } else {
+         let singleAnswer = await model.getAnswersOnly(dataObject.question_id);
+         console.log('singleAnswer:', singleAnswer);
+         res.status(200).send(singleAnswer.rows);
+      }
    } catch (err) {
-      res.status(401).send(err);
+      res.status(400).send(err);
    }
 };
 
@@ -53,7 +61,6 @@ const editAnswerHelpful = async (req: Request, res: Response) => {
    const params = req.params as unknown as AnswerParams;
    try {
       let response = await model.editHelpful(params.answer_id);
-      console.log('response:', response);
       res.status(204).send('Success.');
    } catch (err) {
       console.log('err:', err);
@@ -65,7 +72,6 @@ const editAnswerReport = async (req: Request, res: Response) => {
    const params = req.params as unknown as AnswerParams;
    try {
       let response = await model.editReport(params.answer_id);
-      console.log('response:', response);
       res.status(204).send('Success.');
    } catch (err) {
       console.log('err:', err);

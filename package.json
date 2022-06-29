@@ -7,8 +7,6 @@
       "test": "jest",
       "cypress": "cypress open",
       "server": "nodemon server/server.js",
-      "dev": "concurrently -n 'webpack,server' -c 'bgBlue.bold,bgGreen.bold' \"npx webpack serve --open --config webpack.dev.js\" \"nodemon server/server.js\"",
-      "build": "webpack --watch --config webpack.prod.js",
       "start": "nodemon server.ts"
    },
    "repository": {

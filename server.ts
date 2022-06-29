@@ -7,7 +7,7 @@ import { router as questions } from './routes/questions.route';
 import { router as answers } from './routes/answers.route';
 import { router as editAnswers } from './routes/editAnswers.route';
 
-const port = 8080;
+const port = 8000;
 const app = express();
 
 //MIDDLEWARE
