@@ -1,11 +1,11 @@
 import { expect } from '../jestGlobals';
 import supertest from 'supertest';
 import app from '../app'; //import app from express server, just make sure to split up the app.listen section into another file
-
+import { pool } from '../database/db';
 const request = supertest(app);
 
-afterAll((done) => {
-   done();
+afterAll(() => {
+   pool.end();
 });
 
 describe('API routes', () => {

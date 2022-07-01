@@ -3,7 +3,7 @@ import {
    DatabaseQueryAnswers,
    AnswersPostQuery,
    PhotoQuery,
-} from '../global.d';
+} from '../global.d'; //import all typescript interfaces/types
 
 const get = (answersQuery: DatabaseQueryAnswers) => {
    console.log(answersQuery.question_id);

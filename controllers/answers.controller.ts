@@ -6,7 +6,7 @@ import {
    QueryRequest,
    DatabaseQueryAnswers,
    AnswersPostQuery,
-} from '../global.d';
+} from '../global.d'; //import all typescript interfaces/types
 
 //list answers route
 const getAnswers = async (req: Request, res: Response) => {
