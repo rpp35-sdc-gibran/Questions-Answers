@@ -30,7 +30,6 @@ describe('API routes', () => {
          email: 'email@email.com',
          product_id: 1,
       });
-      console.log('response:', response);
       expect(response.statusCode).toBe(201);
    });
    test('should add an answer', async () => {
@@ -50,17 +49,14 @@ describe('API routes', () => {
    });
    test('should report question', async () => {
       let response = await request.put('/qa/questions/1/report');
-      console.log('response:', response);
       expect(response.statusCode).toBe(204);
    });
    test('should mark answer as helpful', async () => {
       let response = await request.put('/qa/answers/1/helpful');
-      console.log('response:', response);
       expect(response.statusCode).toBe(204);
    });
    test('should report an answer', async () => {
       let response = await request.put('/qa/answers/1/report');
-      console.log('response:', response);
       expect(response.statusCode).toBe(204);
    });
 });
