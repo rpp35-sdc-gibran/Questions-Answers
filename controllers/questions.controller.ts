@@ -18,7 +18,7 @@ const postQuestion = async (req: Request, res: Response) => {
    const body = req.body as unknown as PostQuery;
    try {
       let results = await model.create(body);
-      res.status(200).send('Question has been successfully created!');
+      res.status(201).send('Question has been successfully created!');
    } catch (err) {
       res.status(401).send(err);
    }
