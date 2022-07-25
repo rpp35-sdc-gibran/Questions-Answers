@@ -70,8 +70,10 @@ const editAnswerHelpful = async (req: Request, res: Response) => {
 
 const editAnswerReport = async (req: Request, res: Response) => {
    const params = req.params as unknown as AnswerParams;
+   console.log('params: ', params);
    try {
       let response = await model.editReport(params.answer_id);
+      console.log('response: ', response);
       res.status(204).send('Success.');
    } catch (err) {
       console.log('err:', err);

@@ -4,7 +4,9 @@ import { PostQuery, DatabaseQueryQuestions, Params } from '../global.d';
 
 //list questions route
 const getQuestions = async (req: Request, res: Response) => {
+   console.log('here in get questions controller');
    const query = req.query as unknown as DatabaseQueryQuestions;
+   console.log('query: ', query);
    try {
       let results = await model.get(query);
       res.status(200).send(results.rows);
@@ -16,6 +18,8 @@ const getQuestions = async (req: Request, res: Response) => {
 //post request handler
 const postQuestion = async (req: Request, res: Response) => {
    const body = req.body as unknown as PostQuery;
+   console.log('body: ', body);
+
    try {
       let results = await model.create(body);
       res.status(201).send('Question has been successfully created!');

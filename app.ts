@@ -6,12 +6,13 @@ import compression from 'compression';
 import { router as questions } from './routes/questions.route';
 import { router as answers } from './routes/answers.route';
 import { router as editAnswers } from './routes/editAnswers.route';
+import responseTime from 'response-time';
 
-const port = 8000;
 const app = express();
 
 //MIDDLEWARE
 app.use(compression());
+app.use(responseTime());
 
 // app.use(express.static(path.join(__dirname, '../client/dist')));
 

@@ -22,6 +22,7 @@ const get = (query: QuestionQuery) => {
     WHERE questions.product_id = ${product_id}
    `;
    let results = pool.query(questionsQuery);
+   console.log('results: ', results);
    return results;
 };
 
@@ -29,6 +30,7 @@ const create = (question: Question) => {
    let postQuery = `INSERT INTO questions
    (body, asker_name, asker_email, product_id)
     VALUES ('${question.body}', '${question.name}', '${question.email}', '${question.product_id}')`;
+   console.log('postQuery: ', postQuery);
    let results = pool.query(postQuery);
    return results;
 };
