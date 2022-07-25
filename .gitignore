@@ -2,3 +2,5 @@
 /coverage
 .env
 client/dist
+system-design-key.pem
+questions-answers.pgsql

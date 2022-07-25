@@ -1,0 +1,1 @@
+ssh -i "system-design-key.pem" ubuntu@ec2-44-201-172-54.compute-1.amazonaws.com

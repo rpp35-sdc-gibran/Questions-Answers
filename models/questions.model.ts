@@ -12,15 +12,17 @@ interface Question {
    email: string;
    product_id: string;
 }
+
 const get = (query: QuestionQuery) => {
    let product_id: number = parseInt(query.product_id);
-   let questionsQuery = `SELECT questions.*, data.answers
-   FROM questions
-   INNER JOIN (SELECT question_id, array_to_json(array_agg(to_json(answers.*)))
-   FROM answers
-   GROUP BY question_id) AS data (id, answers) on (questions.id = data.id)
-    WHERE questions.product_id = ${product_id}
-   `;
+   // let questionsQuery = `SELECT questions.*, data.answers
+   // FROM questions
+   // INNER JOIN (SELECT question_id, array_to_json(array_agg(to_json(answers.*)))
+   // FROM answers
+   // GROUP BY question_id) AS data (id, answers) on (questions.id = data.id)
+   //  WHERE questions.product_id = ${product_id}
+   // `;
+   let questionsQuery = `SELECT * from questions where product_id = ${query.product_id}`;
    let results = pool.query(questionsQuery);
    console.log('results: ', results);
    return results;
@@ -48,8 +50,3 @@ const editReport = (id: string) => {
 };
 
 export { get, create, editHelpful, editReport };
-
-// let max_id_of_quesions = `6879307`;
-// let test = `create sequence photos_id_seq minvalue 2063760`;
-// let test2 = `alter table photos alter id set default nextval('photos_id_seq')`;
-// let test3 = `alter sequence photos_id_seq owned by photos.id`;
