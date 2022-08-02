@@ -1,1 +1,1 @@
-ssh -i "system-design-key.pem" ubuntu@ec2-44-201-172-54.compute-1.amazonaws.com
+ssh -i "system-design-key.pem" ubuntu@ec2-3-95-5-10.compute-1.amazonaws.com

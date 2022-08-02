@@ -11,7 +11,6 @@ afterAll(() => {
 describe('API routes', () => {
    test('should get questions from product ID', async () => {
       let response = await request.get('/qa/questions?product_id=2836'); //makes request to endpoint, which can then be tested using jest expect assertion
-      console.log('response for get questions route: ', response);
       expect(response.body.length).toBeTruthy();
       expect(response.statusCode).toBe(200);
    });
@@ -19,7 +18,6 @@ describe('API routes', () => {
       let response = await request.get(
          '/qa/questions/252166/answers?page=1&count=5'
       );
-      console.log('response for getting answers: ', response);
       expect(response.body.length).toBeTruthy();
       expect(response.statusCode).toBe(200);
       expect(response.body[0].question_id).toBe(252166);
@@ -31,7 +29,6 @@ describe('API routes', () => {
          email: 'email@email.com',
          product_id: 1,
       });
-      console.log('response for posting a question: ', response);
       expect(response.statusCode).toBe(201);
    });
    test('should add an answer', async () => {
@@ -42,27 +39,22 @@ describe('API routes', () => {
          question_id: 1,
          photos: "['https://unsplash.com/photos/Won79_9oUEk']",
       });
-      console.log('response for posting an answer: ', response);
       expect(response.statusCode).toBe(201);
    });
    test('should mark question as helpful ', async () => {
       let response = await request.put('/qa/questions/1/helpful');
-      console.log('response for marking question as helpful:', response);
       expect(response.statusCode).toBe(204);
    });
    test('should report question', async () => {
       let response = await request.put('/qa/questions/1/report');
-      console.log('response for reporting question: ', response);
       expect(response.statusCode).toBe(204);
    });
    test('should mark answer as helpful', async () => {
       let response = await request.put('/qa/answers/1/helpful');
-      console.log('response for marking answer as helpful: ', response);
       expect(response.statusCode).toBe(204);
    });
    test('should report an answer', async () => {
       let response = await request.put('/qa/answers/1/report');
-      console.log('response for reporting answers: ', response);
       expect(response.statusCode).toBe(204);
    });
 });

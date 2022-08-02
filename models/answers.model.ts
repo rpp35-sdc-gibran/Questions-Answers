@@ -6,27 +6,13 @@ import {
 } from '../global.d'; //import all typescript interfaces/types
 
 const get = (answersQuery: DatabaseQueryAnswers) => {
-   console.log(answersQuery.question_id);
    let dbQuery = `SELECT answers.*, data.photos
    FROM answers
    INNER JOIN (SELECT answer_id, array_to_json(array_agg(to_json(photos.*)))
    FROM photos
    GROUP BY answer_id) AS data (id, photos) on (answers.id = data.id)
     WHERE answers.question_id = ${answersQuery.question_id}`;
-
-   //  ${answersQuery.question_id}
-   // let dbQuery = `SELECT answers.*, data.photos
-   // FROM answers
-   // INNER JOIN (SELECT answer_id, array_to_json(array_agg(to_json(photos.*)))
-   // FROM photos
-   // GROUP BY answer_id) AS data (id, photos) on (answers.id = data.id)
-   //  WHERE answers.question_id = ${answersQuery.question_id}
-   // `;
-   //492192
-   console.log('dbQuery:', dbQuery);
    let results = pool.query(dbQuery);
-   console.log('results in get model answers:', results);
-
    return results;
 };
 
@@ -38,12 +24,10 @@ const getAnswersOnly = (id: string) => {
 };
 
 const createAnswer = (answer: AnswersPostQuery) => {
-   console.log('answer: ', answer);
    let dbQuery = `INSERT INTO answers (body, answerer_name, answerer_email, question_id)
    VALUES ('${answer.body}', '${answer.name}', '${answer.email}', '${answer.question_id}')
     RETURNING id`;
    let results = pool.query(dbQuery);
-   console.log('results: ', results);
    return results;
 };
 
@@ -62,7 +46,6 @@ const editHelpful = (id: string) => {
 const editReport = (id: string) => {
    let editQuery = `UPDATE answers SET reported = true WHERE id = ${id}`;
    let results = pool.query(editQuery);
-   console.log('results: ', results);
    return results;
 };
 
