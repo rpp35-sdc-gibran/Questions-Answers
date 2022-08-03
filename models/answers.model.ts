@@ -20,6 +20,7 @@ const get = (answersQuery: DatabaseQueryAnswers) => {
 const getAnswersOnly = (id: string) => {
    let dbQuery = `SELECT * FROM answers WHERE question_id=${id}`;
    let results = pool.query(dbQuery);
+   console.log('results in get answer model: ', results);
    return results;
 };
 

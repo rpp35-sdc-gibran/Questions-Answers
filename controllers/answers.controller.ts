@@ -25,6 +25,7 @@ const getAnswers = async (req: Request, res: Response) => {
          res.status(200).send(singleAnswer.rows);
       }
    } catch (err) {
+      console.log('err in get answers: ', err);
       res.status(400).send(err);
    }
 };
