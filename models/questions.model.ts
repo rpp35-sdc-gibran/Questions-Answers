@@ -16,6 +16,7 @@ interface Question {
 const get = (query: QuestionQuery) => {
    console.log('here in get questions model');
    let product_id: number = parseInt(query.product_id);
+   console.log('product_id: ', product_id);
    let questionsQuery = `SELECT * from questions where product_id = ${query.product_id}`;
    console.log('pool in get questions model: ', pool);
    let results = pool.query(questionsQuery);

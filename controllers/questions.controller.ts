@@ -4,7 +4,9 @@ import { PostQuery, DatabaseQueryQuestions, Params } from '../global.d';
 
 //list questions route
 const getQuestions = async (req: Request, res: Response) => {
+   console.log('here get questions route controller');
    const query = req.query as unknown as DatabaseQueryQuestions;
+   console.log('query in getquestions: ', query);
    try {
       let results = await model.get(query);
 
