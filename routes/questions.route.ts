@@ -3,6 +3,7 @@ import * as controller from '../controllers/questions.controller';
 const router = Router();
 
 router.get('/', (req: Request, res: Response) => {
+   console.log('here in get questions');
    controller.getQuestions(req, res);
 });
 

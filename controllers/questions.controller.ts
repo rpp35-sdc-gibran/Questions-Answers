@@ -7,8 +7,10 @@ const getQuestions = async (req: Request, res: Response) => {
    const query = req.query as unknown as DatabaseQueryQuestions;
    try {
       let results = await model.get(query);
+
       res.status(200).send(results.rows);
    } catch (err) {
+      console.log('err: ', err);
       res.status(401).send(err);
    }
 };
