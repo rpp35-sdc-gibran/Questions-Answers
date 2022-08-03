@@ -26,6 +26,7 @@ app.use('/qa/questions/:question_id/answers', answers);
 app.use('/qa/answers/:answer_id', editAnswers);
 
 app.get('/', (req: express.Request, res: express.Response) => {
+   console.log('here in get main route');
    res.status(200).json({
       status: 'success',
       data: {
