@@ -8,6 +8,5 @@ router.get('/', (req: Request, res: Response) => {
 
 router.post('/', (req: Request, res: Response) => {
    controller.postAnswers(req, res);
-   // controller.postAnswers()
 });
 export { router };
